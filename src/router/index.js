@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+// 登录页
 import login from '@/views/login.vue'
-
+// 首页
 import index from '@/views/index.vue'
+// 欢迎
+import welcome from '@/views/welcome.vue'
+// 文章列表
+import postList from '@/views/postList.vue'
 
 Vue.use(VueRouter)
 
@@ -17,7 +22,21 @@ let router = new VueRouter({
     {
       name: 'index',
       path: '/',
-      component: index
+      component: index,
+      // 重定向-显示欢迎数据
+      redirect: { name: 'welcome' },
+      children: [
+        {
+          name: 'welcome',
+          path: 'welcome',
+          component: welcome
+        },
+        {
+          name: 'postList',
+          path: 'postList',
+          component: postList
+        }
+      ]
     }
   ]
 })

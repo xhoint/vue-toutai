@@ -1,22 +1,24 @@
 <template>
   <div class="login">
     <div class="container">
-      <img src="../assets/avatar.jpg" alt="" class='avatar'>
+      <img src="../assets/avatar.jpg" alt class="avatar" />
       <el-form :model="loginForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
-      <el-form-item prop="username">
-        <el-input v-model="loginForm.username" placeholder="请输入用户名" prefix-icon="icon-user"></el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="icon-key"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" class="login-btn" >登陆</el-button>
-      </el-form-item>
-    </el-form>
+        <el-form-item prop="username">
+          <el-input v-model="loginForm.username" placeholder="请输入用户名" prefix-icon="icon-user"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="icon-key"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" class="login-btn" @click="loginbtn">登陆</el-button>
+        </el-form-item>
+      </el-form>
     </div>
   </div>
 </template>
 <script>
+import { login } from '../apis/user'
+
 export default {
   //   required:必填项
   // message：如果不符合规则时的提示信息
@@ -25,8 +27,8 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: '123456',
+        password: '123456'
       },
       // 添加数据的验证规则
       rules: {
@@ -46,6 +48,30 @@ export default {
           { min: 3, max: 16, message: '请输入3-16位的密码', trigger: 'blur' }
         ]
       }
+    }
+  },
+  methods: {
+    loginbtn () {
+      // 实现用户数据的验证，如果通过，在发送请求，否则终止
+      this.$refs.ruleForm.validate(async valid => {
+        if (valid) {
+          let res = await login(this.loginForm)
+          console.log(res)
+          // 判断是否登录成功
+          if (res.data.message === '登录成功') {
+            // 存储当前用户的登陆状态
+            localStorage.setItem('ht_token', res.data.data.token)
+            // 跳转到首页
+            this.$router.push({ name: 'index' })
+          } else {
+            // 提示用户
+            this.$message.error(res.data.message)
+          }
+        } else {
+          this.$message.warning('数据输入不合法')
+          return false
+        }
+      })
     }
   }
 }

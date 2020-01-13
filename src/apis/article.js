@@ -7,3 +7,9 @@ export const getPostList = params => {
     params
   })
 }
+// 获取文章发布
+export const getCateList = () => {
+  return axios({
+    url: '/category'
+  })
+}

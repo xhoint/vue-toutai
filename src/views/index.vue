@@ -35,7 +35,7 @@
                 <span>文章列表</span>
               </template>
             </el-menu-item>
-            <el-menu-item index="2-2">
+            <el-menu-item index="/article">
               <template slot="title">
                 <i class="el-icon-setting"></i>
                 <span>文章发布</span>
@@ -61,12 +61,13 @@
           <span class="el-icon-s-fold toggle-btn"></span>
           <span class="system-title">黑马头条后台管理系统</span>
           <div class="welcome">
-            <span>欢迎你：41期的小伙伴</span> &nbsp;&nbsp;
+            <img src="../assets/avatar.jpg" alt width="50px" />
+            <span>欢迎你：胡歌</span> &nbsp;&nbsp;
             <span>退出</span>
           </div>
         </el-header>
         <el-main>
-            <!-- 嵌套路由 -->
+          <!-- 嵌套路由 -->
           <router-view></router-view>
         </el-main>
       </el-container>

@@ -9,6 +9,8 @@ import index from '@/views/index.vue'
 import welcome from '@/views/welcome.vue'
 // 文章列表
 import postList from '@/views/postList.vue'
+// 文章发布
+import article from '@/views/article.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +37,11 @@ let router = new VueRouter({
           name: 'postList',
           path: 'postList',
           component: postList
+        },
+        {
+          name: 'article',
+          path: 'article',
+          component: article
         }
       ]
     }
